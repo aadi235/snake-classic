@@ -4,6 +4,10 @@ const infoWindow = document.querySelector(".info-window")
 const infoText = document.querySelector(".info-text");
 const infoButton = document.querySelector(".info-button");
 const gameBoard = document.querySelector(".game-board");
+const menu = document.querySelector(".menubutton-container")
+const pauseButton = document.querySelector(".pause");
+const restartButton = document.querySelector(".restart");
+const shareButton = document.querySelector(".share");
 
 var score = 0;
 var highScore = 0;
@@ -120,6 +124,49 @@ infoButton.addEventListener("click", ()=>{
     Game();
 });
 
+function pauseGame(toggle=true) {
+    if (state === "play")
+    {
+        state = "pause";
+        pauseButton.innerHTML = '<svg class = "menu-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/></svg>';
+    }
+    else if (state === "pause" && toggle)
+    {
+        state = "play";
+        pauseButton.innerHTML = '<svg class = "menu-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16"><path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5"/></svg>';
+    }
+}
+
+pauseButton.addEventListener("click", () => {
+    pauseGame(); 
+});
+
+shareButton.addEventListener("click",() => {
+    pauseGame(toggle=false);
+    if (navigator.share) {
+          navigator.share({
+            title: document.title,
+            url: window.location.href
+          })
+          .then(function() {
+            console.log('Sharing successful');
+          })
+          .catch(function(error) {
+            console.error('Error sharing:', error);
+          });
+      } else {
+        console.warn('Web Share API is not supported in this browser');
+      }
+});
+
+restartButton.addEventListener("click",() => {
+    state = "restart";
+    score = 0;
+    scoreElement.textContent = score;
+    hideInfoWindow();
+    showInfoWindow("Snake", "Play");
+});
+
 document.addEventListener("keydown", (event) => {
     if (state === "play") {
         switch(event.key){
@@ -150,17 +197,21 @@ function Game(){
             snake.move(direction, food);
             food.render();
             snake.render();
+            scoreElement.textContent = score;
+            highScoreElement.textContent = highScore;
             if (score > highScore){
                 highScore = score;
             }
-            scoreElement.textContent = score;
-            highScoreElement.textContent = highScore;
             if (snake.collided()){
                 state = "stop";
                 hideGameBoard();
                 showInfoWindow("Game Over!", "Retry");
                 clearInterval(gameLoop);
             }
+        }
+        else if(state === "restart") {
+            hideGameBoard();
+            clearInterval(gameLoop);
         }
     }, gameDelay);
 }

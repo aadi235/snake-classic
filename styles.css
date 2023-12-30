@@ -4,11 +4,48 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+}
+
+button {
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+button:hover{
+    background: #c2c2c2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.game-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.menubutton-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+    height: 450px;
+}
+
+.menu-button{
+    background: rgb(228, 223, 223);
+    border: solid black 2px;
+    color: black;
 }
 
 .game-window{
@@ -41,22 +78,11 @@ body{
 
 .info-button{
     margin-bottom: 20px;
-    -webkit-border-radius: 5;
-    -moz-border-radius: 5;
-    border-radius: 5px;
-    color: white;
-    font-size: 1rem;
     background: black;
-    padding: 10px 20px 10px 20px;
     border: solid #ffffff 5px;
-    text-decoration: none;
+    color: white;
 }
 
-.info-button:hover{
-    background: #c2c2c2;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 .info-button:active{
     background: black;
