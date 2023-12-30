@@ -112,6 +112,10 @@ function hideGameBoard(){
 infoButton.addEventListener("click", ()=>{
     hideInfoWindow();
     showGameBoard();
+    boardStyles = window.getComputedStyle(gameBoard);
+    nColumns = boardStyles.gridTemplateColumns.split(' ').filter(value => value !== '0px').length;
+    nRows = boardStyles.gridTemplateRows.split(' ').filter(value => value !== '0px').length;
+    console.log(nRows, nColumns);
     state = "play";
     Game();
 });
@@ -139,10 +143,6 @@ function Game(){
     score = 0;
     const snake = new Snake();
     const food = new Food();
-    boardStyles = window.getComputedStyle(gameBoard);
-    nColumns = boardStyles.gridTemplateColumns.split(' ').length;
-    nRows = boardStyles.gridTemplateRows.split(' ').length;
-
     food.generateFood();
     var gameLoop = setInterval(() => {
         if(state === "play"){
