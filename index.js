@@ -171,16 +171,24 @@ document.addEventListener("keydown", (event) => {
     if (state === "play") {
         switch(event.key){
             case "ArrowUp":
-                direction = "up";
+                if (direction != "down"){
+                    direction = "up";
+                }
                 break;
             case "ArrowDown":
-                direction = "down";
+                if (direction != "up"){
+                    direction = "down";
+                }
                 break;
             case "ArrowLeft":
-                direction = "left";
+                if (direction != "right"){
+                    direction = "left";
+                }
                 break;
             case "ArrowRight":
-                direction = "right";
+                if (direction != "left"){
+                    direction = "right";
+                }
                 break;
         }
     }
