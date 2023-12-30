@@ -115,7 +115,6 @@ infoButton.addEventListener("click", ()=>{
     boardStyles = window.getComputedStyle(gameBoard);
     nColumns = boardStyles.gridTemplateColumns.split(' ').filter(value => value !== '0px').length;
     nRows = boardStyles.gridTemplateRows.split(' ').filter(value => value !== '0px').length;
-    console.log(nRows, nColumns);
     state = "play";
     Game();
 });
