@@ -8,6 +8,7 @@ const menu = document.querySelector(".menubutton-container")
 const pauseButton = document.querySelector(".pause");
 const restartButton = document.querySelector(".restart");
 const shareButton = document.querySelector(".share");
+const hammer = new Hammer(document.body);
 
 
 
@@ -20,6 +21,23 @@ var nColumns = undefined;
 var nRows = undefined;
 const gameDelay = 50;
 
+hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+hammer.on('swiperight swipeleft swipeup swipedown', function (event) {
+    switch (event.direction) {
+      case Hammer.DIRECTION_LEFT:
+        direction = "left"
+        break;
+      case Hammer.DIRECTION_RIGHT:
+        direction = "right"
+        break;
+      case Hammer.DIRECTION_UP:
+        direction = "up";
+        break;
+      case Hammer.DIRECTION_DOWN:
+        direction = "down";
+        break;
+    }
+});
 
 function createGameObject(element, parent, position){
     var newDiv = document.createElement("div");
