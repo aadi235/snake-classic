@@ -23,7 +23,7 @@ const gameDelay = 60;
 
 function createGameObject(element, parent, position){
     var newDiv = document.createElement("div");
-    newDiv.className = element.className;
+    newDiv.classList = element.classList;
     newDiv.style.display = "block";
     newDiv.style.gridColumn = position.x;
     newDiv.style.gridRow = position.y;
@@ -32,7 +32,7 @@ function createGameObject(element, parent, position){
 
 function Snake(){
     this.snakeElement = document.querySelector(".snake-element");
-    this.snakeBody = [{x: 25, y: 25}];
+    this.snakeBody = [{x: 25, y: 25},{x: 24, y: 25}];
     this.move = (direction, food) => {
         let newHeadLocation = JSON.parse(JSON.stringify(this.snakeBody))[0];
         switch(direction)
@@ -63,9 +63,22 @@ function Snake(){
         }
     }
     this.render = () => {
-        this.snakeBody.forEach((location) => {
-            createGameObject(this.snakeElement, gameBoard, location);
-        });
+
+        for (let i = 0; i < this.snakeBody.length; i++) {
+            let snakePart = "snake-body";
+            if (i === 0){
+                snakePart = "snake-head";
+            }
+            else if(i === this.snakeBody.length - 1){
+                snakePart = "snake-tail";
+            }
+
+            this.snakeElement.classList.add(snakePart);
+            this.snakeElement.classList.add(direction);
+            createGameObject(this.snakeElement, gameBoard, this.snakeBody[i]);
+            this.snakeElement.classList.remove(snakePart);
+            this.snakeElement.classList.remove(direction);
+        }
     }
     this.collided = () => {
         if (this.snakeBody[0].x < 1 || 

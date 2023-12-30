@@ -109,7 +109,6 @@ button:hover{
 .snake-element{
     display: none;
     background-color: greenyellow;
-    border-radius: 15%;
     grid-column: none;
     grid-row: none;
 }
@@ -120,4 +119,28 @@ button:hover{
     border-radius: 35%;
     grid-column: none;
     grid-row: none;
+}
+
+.snake-head{
+    border-radius : 50% 50% 15% 15%;
+}
+
+.snake-body {
+    border-radius : 15%;
+}
+
+.snake-tail{
+    border-radius : 15% 15% 20% 20%;
+}
+
+.down{
+    transform: rotate(180deg);
+}
+
+.left{
+    transform: rotate(-90deg);
+}
+
+.right{
+    transform: rotate(90deg);
 }
