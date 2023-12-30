@@ -9,6 +9,8 @@ const pauseButton = document.querySelector(".pause");
 const restartButton = document.querySelector(".restart");
 const shareButton = document.querySelector(".share");
 
+
+
 var score = 0;
 var highScore = 0;
 var state = "start";
@@ -54,6 +56,8 @@ function Snake(){
             this.snakeBody.pop();
         }
         else{
+            let eatSound = new Audio("assets/sounds/eat-sound v2.wav")
+            eatSound.play();
             score += 1;
             food.generateFood();
         }
@@ -115,6 +119,8 @@ function hideGameBoard(){
 }
 
 infoButton.addEventListener("click", ()=>{
+    let buttonPressSound = new Audio("assets/sounds/button-press.mp3");
+    buttonPressSound.play();
     hideInfoWindow();
     showGameBoard();
     boardStyles = window.getComputedStyle(gameBoard);
@@ -138,10 +144,14 @@ function pauseGame(toggle=true) {
 }
 
 pauseButton.addEventListener("click", () => {
+    let buttonPressSound = new Audio("assets/sounds/button-press.mp3");
+    buttonPressSound.play();
     pauseGame(); 
 });
 
 shareButton.addEventListener("click",() => {
+    let buttonPressSound = new Audio("assets/sounds/button-press.mp3");
+    buttonPressSound.play();
     pauseGame(toggle=false);
     if (navigator.share) {
           navigator.share({
@@ -160,6 +170,8 @@ shareButton.addEventListener("click",() => {
 });
 
 restartButton.addEventListener("click",() => {
+    let buttonPressSound = new Audio("assets/sounds/button-press.mp3");
+    buttonPressSound.play();
     state = "restart";
     score = 0;
     scoreElement.textContent = score;
@@ -213,6 +225,8 @@ function Game(){
             if (snake.collided()){
                 state = "stop";
                 hideGameBoard();
+                let gameOverSound = new Audio("assets/sounds/game-over.wav");
+                gameOverSound.play();
                 showInfoWindow("Game Over!", "Retry");
                 clearInterval(gameLoop);
             }
