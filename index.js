@@ -12,6 +12,7 @@ var direction = "right";
 var boardStyles = undefined;
 var nColumns = undefined;
 var nRows = undefined;
+const gameDelay = 60;
 
 
 function createGameObject(element, parent, position){
@@ -161,5 +162,5 @@ function Game(){
                 clearInterval(gameLoop);
             }
         }
-    }, 70);
+    }, gameDelay);
 }
