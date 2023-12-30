@@ -18,7 +18,7 @@ var direction = "right";
 var boardStyles = undefined;
 var nColumns = undefined;
 var nRows = undefined;
-const gameDelay = 60;
+const gameDelay = 50;
 
 
 function createGameObject(element, parent, position){
@@ -32,7 +32,7 @@ function createGameObject(element, parent, position){
 
 function Snake(){
     this.snakeElement = document.querySelector(".snake-element");
-    this.snakeBody = [{x: 25, y: 25},{x: 24, y: 25}];
+    this.snakeBody = [{x: nColumns / 2, y: nRows / 2},{x: nColumns / 2 - 1, y: nRows / 2}];
     this.move = (direction, food) => {
         let newHeadLocation = JSON.parse(JSON.stringify(this.snakeBody))[0];
         switch(direction)
@@ -224,7 +224,7 @@ function Game(){
     const snake = new Snake();
     const food = new Food();
     food.generateFood();
-    var gameLoop = setInterval(() => {
+    function updateAnimation(){
         if(state === "play"){
             gameBoard.innerHTML = "";
             snake.move(direction, food);
@@ -248,5 +248,6 @@ function Game(){
             hideGameBoard();
             clearInterval(gameLoop);
         }
-    }, gameDelay);
+    }
+    var gameLoop = setInterval(updateAnimation, gameDelay);
 }
