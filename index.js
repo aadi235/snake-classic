@@ -21,24 +21,6 @@ var nColumns = undefined;
 var nRows = undefined;
 const gameDelay = 50;
 
-hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-hammer.on('swiperight swipeleft swipeup swipedown', function (event) {
-    switch (event.direction) {
-      case Hammer.DIRECTION_LEFT:
-        direction = "left"
-        break;
-      case Hammer.DIRECTION_RIGHT:
-        direction = "right"
-        break;
-      case Hammer.DIRECTION_UP:
-        direction = "up";
-        break;
-      case Hammer.DIRECTION_DOWN:
-        direction = "down";
-        break;
-    }
-});
-
 function createGameObject(element, parent, position){
     var newDiv = document.createElement("div");
     newDiv.classList = element.classList;
@@ -210,7 +192,37 @@ restartButton.addEventListener("click",() => {
     showInfoWindow("Snake", "Play");
 });
 
+hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+hammer.on('swiperight swipeleft swipeup swipedown', function (event) {
+    console.log(event);
+    if (state === "play"){
+        switch (event.direction) {
+            case Hammer.DIRECTION_LEFT:
+              if (direction != "right"){
+                  direction = "left";
+              }
+              break;
+            case Hammer.DIRECTION_RIGHT:
+              if (direction != "left"){
+                  direction = "right"
+              }
+              break;
+            case Hammer.DIRECTION_UP:
+              if (direction != "down"){
+                  direction = "up";
+              }
+              break;
+            case Hammer.DIRECTION_DOWN:
+              if (direction != "up"){
+                  direction = "down";
+              }
+              break;
+        }
+    }
+});
+
 document.addEventListener("keydown", (event) => {
+    console.log(event);
     if (state === "play") {
         switch(event.key){
             case "ArrowUp":
